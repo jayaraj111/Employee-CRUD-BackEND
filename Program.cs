@@ -10,6 +10,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient(); //Add on HttpClient
+
+builder.Services.AddCors((corsoptions)=>  // Add cors policy
+{
+    corsoptions.AddPolicy("MyPolicy",(policyoptions)=>
+    {
+        policyoptions.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+        
+    });
+
+});
+
 builder.Services.AddDbContext<EmployeeDbContext>(options => 
    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlconnectionstring")));
 
@@ -23,6 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyPolicy");  // Add cors policy
+
 
 app.UseAuthorization();
 

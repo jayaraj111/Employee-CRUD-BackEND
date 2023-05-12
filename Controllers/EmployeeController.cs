@@ -18,7 +18,7 @@ public class EmployeeController : ControllerBase
 
     }
 
-    [HttpGet]
+    [HttpGet("GetEmployee")]
     public async Task<IActionResult> GetEmployee()
     {
         var Employees = await _EmployeeDbContext.Employees.ToListAsync();
